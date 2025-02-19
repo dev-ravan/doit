@@ -21,13 +21,7 @@ class TaskWithCheckBox extends StatefulWidget {
 
 class _TaskWithCheckBoxState extends State<TaskWithCheckBox>
     with SingleTickerProviderStateMixin {
-  bool _isDone = false;
   late final _slidableController = SlidableController(this);
-  void changeTaskStatus() {
-    setState(() {
-      _isDone = !_isDone;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +33,9 @@ class _TaskWithCheckBoxState extends State<TaskWithCheckBox>
         children: [
           SlidableAction(
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-            onPressed: (context) {},
+            onPressed: (context) {
+              widget.taskProvider.deleteTask(widget.taskIndex);
+            },
             foregroundColor: Palettes.redColor,
             icon: Icons.delete_outline_outlined,
           ),
@@ -59,14 +55,14 @@ class _TaskWithCheckBoxState extends State<TaskWithCheckBox>
         child: Row(
           children: [
             Checkbox(
-                value: _isDone,
+                value: widget.task.isDone,
                 onChanged: (value) =>
                     widget.taskProvider.changeTaskStatus(widget.taskIndex)),
             Text(
               widget.task.task,
               style: txtTheme.bodyLarge!.copyWith(
                   fontWeight: FontWeight.w500,
-                  decoration: _isDone
+                  decoration: widget.task.isDone
                       ? TextDecoration.lineThrough
                       : TextDecoration.none),
             )

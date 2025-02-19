@@ -7,6 +7,7 @@ import 'package:doit/Features/Tasks/View/components/task_with_check_box.dart';
 import 'package:doit/styles/palettes.dart';
 import 'package:doit/styles/sizes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -44,6 +45,9 @@ class _TasksScreenState extends State<TasksScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
+        systemOverlayStyle: const SystemUiOverlayStyle(
+          statusBarBrightness: Brightness.light,
+        ),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 16),
